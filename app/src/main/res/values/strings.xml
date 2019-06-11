@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Hello Toast</string>
+    <string name="button_label_toast">Toast</string>
+    <string name="button_label_count">Count</string>
+    <string name="count_initial_value">0</string>
+    <string name="toast_message">Hello Toast!</string>
+    <string name="cpuActivity_name">Cpu Activity</string>
+    <string name="appsActivity_name">Apps Activity</string>
+    <string name="systemActivity_name">System Activity</string>
+    <string name="memoryActivity_name">Memory Activity</string>
+    <string name="apps_button">Apps</string>
+    <string name="cpu_button">Cpu</string>
+    <string name="memory_button">Memory</string>
+    <string name="system_button">System</string>
+    <string name="system_monitor">System Monitor</string>
+</resources>
