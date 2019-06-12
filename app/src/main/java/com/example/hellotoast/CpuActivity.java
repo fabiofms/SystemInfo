@@ -11,10 +11,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class CpuActivity extends AppCompatActivity {
 
     private TextView mCpuText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,6 @@ public class CpuActivity extends AppCompatActivity {
                         curFrequency = Integer.parseInt(aLine);
                     }
                     catch(NumberFormatException e){
-
                         Log.e("CPU info", e.toString());
                     }
                 }
@@ -82,6 +84,53 @@ public class CpuActivity extends AppCompatActivity {
         for (int i = 0; i < numberOfCores; i++){
             resultado += String.format("%s %d: %d MHz\n","CPU",i + 1, getCurrentFrequency(i)/1000);
         }
+        resultado = resultado + String.format("\nTemperature: %d", (int)cpuTemperature()) + (char)0x00B0 + "C\n\n";
+        resultado += getUsageCpuInfo();
         return resultado;
+
     }
+
+    public float cpuTemperature() {
+        Process process;
+        try {
+            process = Runtime.getRuntime().exec("cat sys/class/thermal/thermal_zone0/temp");
+            process.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if(line!=null) {
+                float temp = Float.parseFloat(line);
+                return temp / 1000.0f;
+            }else{
+                return 51.0f;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0.0f;
+        }
+    }
+
+    public String getUsageCpuInfo(){
+        String info = "";
+        String[] DATA = {"ls", "/sys"};
+        ProcessBuilder processBuilder = new ProcessBuilder(DATA);;
+        Process process;
+        InputStream inputStream;
+        byte[] byteArry = new byte[2048];
+
+        try {
+            // process le o arquivo cpuinfo
+
+            process = processBuilder.start();
+            inputStream = process.getInputStream();
+            while(inputStream.read(byteArry) != -1){
+                info = info + new String(byteArry);
+            }
+            inputStream.close();
+            //mShowCPU.setText(Holder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return info;
+    }
+
 }
