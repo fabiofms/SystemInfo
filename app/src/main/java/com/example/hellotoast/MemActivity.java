@@ -51,9 +51,9 @@ public class MemActivity extends AppCompatActivity {
         info = info + String.format("%-20s: ","Total Memory") + bytesToHuman(memoryInfo.totalMem) + "\n";
         info += String.format("%-20s: %d%s\n","Memory Usage",(100-memoryInfo.availMem*100/memoryInfo.totalMem),"%");
         info += String.format("%-20s: %s\n\n","Low Memory",memoryInfo.lowMemory ? "Sim":"Não");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            info += getStorageInfo();
-        }
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        //    info += getStorageInfo();
+        //}
         return info;
     }
 

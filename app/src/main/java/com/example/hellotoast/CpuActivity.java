@@ -111,6 +111,7 @@ public class CpuActivity extends AppCompatActivity {
 
     public String getUsageCpuInfo(){
         String info = "";
+
         String[] DATA = {"ls", "/sys"};
         ProcessBuilder processBuilder = new ProcessBuilder(DATA);;
         Process process;
