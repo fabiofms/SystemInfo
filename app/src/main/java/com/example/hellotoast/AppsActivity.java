@@ -33,12 +33,10 @@ public class AppsActivity extends AppCompatActivity {
 
     private PackageManager packageManager;
     private List<ApplicationInfo> installedApplications;
-    //final StorageManager storageManager = (StorageManager) getSystemService(Context.STORAGE_SERVICE);// Adicionado
     private TextView mAppText;
     UsageStatsManager mUsageStatsManager;
     StorageStatsManager storageStatsManager;
     StorageManager storageManager;
-    private int MY_PERMISSIONS_PACKAGE_USAGE_STATS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class AppsActivity extends AppCompatActivity {
 
         packageManager = getPackageManager();
 
-        /*  Installed Applications  */
+        /*  Installed Applications. Não usado*/
         installedApplications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
         mAppText.setText(getInstalledApplicationsInfo());
 
@@ -56,7 +54,7 @@ public class AppsActivity extends AppCompatActivity {
         mUsageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
         getUsageStatistics(UsageStatsManager.INTERVAL_BEST);
 
-        /*  Storage Stats   */
+        /*  Storage Stats. Não usado   */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             storageStatsManager = (StorageStatsManager) getSystemService(Context.STORAGE_STATS_SERVICE);
         }
@@ -66,10 +64,7 @@ public class AppsActivity extends AppCompatActivity {
 
     }
 
-    public void getUuids(){
-
-    }
-
+    /*  Método que fornece lista dos aplicativos instalados no dispositivo. Não utilizado no momento    */
     public String getInstalledApplicationsInfo(){
         String info = "";
         for (int i = 0; i < installedApplications.size(); i++){
@@ -80,6 +75,7 @@ public class AppsActivity extends AppCompatActivity {
         return info;
     }
 
+    /*  Método que retorna informação de aplicativo instalado no dispositivo. Não utilizado no momento    */
     public String getInstalledApplicationInfo(int i){
         String info = "";
         ApplicationInfo appInfo = installedApplications.get(i);
@@ -163,7 +159,7 @@ public class AppsActivity extends AppCompatActivity {
         return info;
     }
 
-
+    /*  Código a ser finalizado para obter dados de armazenamento dos aplicativos */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private List<StorageVolume> getStorageVolumes() {
         if (storageManager == null || storageStatsManager == null) {

@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class CpuActivity extends AppCompatActivity {
@@ -85,7 +84,6 @@ public class CpuActivity extends AppCompatActivity {
             resultado += String.format("%s %d: %d MHz\n","CPU",i + 1, getCurrentFrequency(i)/1000);
         }
         resultado = resultado + String.format("\nTemperature: %d", (int)cpuTemperature()) + (char)0x00B0 + "C\n\n";
-        resultado += getUsageCpuInfo();
         return resultado;
 
     }
@@ -107,31 +105,6 @@ public class CpuActivity extends AppCompatActivity {
             e.printStackTrace();
             return 0.0f;
         }
-    }
-
-    public String getUsageCpuInfo(){
-        String info = "";
-
-        String[] DATA = {"ls", "/sys"};
-        ProcessBuilder processBuilder = new ProcessBuilder(DATA);;
-        Process process;
-        InputStream inputStream;
-        byte[] byteArry = new byte[2048];
-
-        try {
-            // process le o arquivo cpuinfo
-
-            process = processBuilder.start();
-            inputStream = process.getInputStream();
-            while(inputStream.read(byteArry) != -1){
-                info = info + new String(byteArry);
-            }
-            inputStream.close();
-            //mShowCPU.setText(Holder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return info;
     }
 
 }
